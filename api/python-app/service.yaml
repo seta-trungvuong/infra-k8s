@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app
+  namespace: api
+spec:
+  ports:
+    - name: python-app
+      port: 80
+      targetPort: python-app-port
+  selector:
+    app: python-app

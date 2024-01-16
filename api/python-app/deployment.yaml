@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+  namespace: api
+  labels:
+    app: python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+        - name: python-app
+          image: tvuong/python-rest-api:d6b4a2f2d47b4679429d28362def9d0355fbb0a9
+          ports:
+            - name: python-app-port
+              containerPort: 8000
+          livenessProbe:
+            exec:
+              command:
+                - "true"
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: python-app-port
+            initialDelaySeconds: 3
+            periodSeconds: 15

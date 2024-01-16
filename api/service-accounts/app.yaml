@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app
+  namespace: api
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::345059486472:role/mos-eks-app-service-account-role-dev

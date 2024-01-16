@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  namespace: api
+  labels:
+    app: nodejs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+        - name: nodejs-app
+          image: tvuong/nodejs-project-demo:9a16e6663f4f460053ea30d07875e4de865ca1db
+          command: ["npm", "start"]
+          ports:
+            - name: nodejs-app-port
+              containerPort: 8000
+          livenessProbe:
+            exec:
+              command:
+                - "true"
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: nodejs-app-port
+            initialDelaySeconds: 3
+            periodSeconds: 15
