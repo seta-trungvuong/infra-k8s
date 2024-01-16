@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: production
+  namespace: metallb-system
+spec:
+# your private IPv4s range of worker servers then we can expose the public IP to the internet later 
+  addresses:
+  - 10.148.0.7-10.148.0.8
